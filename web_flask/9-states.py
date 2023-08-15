@@ -14,15 +14,16 @@ def teardown(self):
 @app.route("/states", strict_slashes=False)
 def states():
     return render_template("9-states.html",
-                           states=storage.all(State).values(),
-                           flag=0)
+                           states=storage.all(State).values())
 
 
-@app.route("/states/<id>", strict_slashes=False)
+@app.route("/states/<string:id>", strict_slashes=False)
 def states_id(id):
-    return render_template("9-states.html", id=id,
-                           states=storage.all(State).values(),
-                           flag=1)
+    for s in storage.all(State).values():
+        if s.id == id:
+            return render_template("9-states.html", id=id,
+                                   state=s, status='id')
+    return render_template("9-states.html", states=s, status='none')
 
 
 if __name__ == "__main__":
