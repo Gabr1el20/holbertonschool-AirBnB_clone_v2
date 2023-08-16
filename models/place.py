@@ -61,7 +61,7 @@ class Place(BaseModel, Base):
             from models import storage
             listed = []
             for k, v in storage.all(Amenity).items():
-                if v.id == self.id:
+                if v.id in self.amenity_ids:
                     listed.append(v)
             return listed
 

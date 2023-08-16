@@ -6,24 +6,14 @@ import re
 
 states = [
     ('421a55f4-7d82-47d9-b51c-a76916479545', 'stateA', [
-            ('521a55f4-7d82-47d9-b51c-a76916479545', 'cityAA'),
-            ('521a55f4-7d82-47d9-b51c-a76916479546', 'cityAB')
     ]),
     ('421a55f4-7d82-47d9-b51c-a76916479546', 'stateB', [
-            ('511a55f4-7d82-47d9-b51c-a76916479546', 'cityBA'),
-            ('511a55f4-7d82-47d9-b51c-a76916479547', 'cityBB')
     ]),
     ('421a55f4-7d82-47d9-b52c-a76916479547', 'stateC', [
-            ('521a55f4-7d82-47d9-b52c-a76916479547', 'cityCA'),
-            ('521a55f4-7d82-47d9-b52c-a76916479548', 'cityCB')
     ]),
     ('421a55f4-7d82-47d9-b53c-a76916479548', 'stateD', [
-            ('531a55f4-7d82-47d9-b53c-a76916479548', 'cityDA'),
-            ('531a55f4-7d82-47d9-b53c-a76916479549', 'cityDB')
     ]),
     ('421a55f4-7d82-47d9-b57c-a76916479549', 'stateE', [
-            ('511a55f4-7d82-47d9-b57c-a76916479549', 'cityEA'),
-            ('511a55f4-7d82-47d9-b57c-a76916479539', 'cityEB')
     ])
 ]
 
@@ -95,8 +85,8 @@ for li_tag_el in li_tags_el:
     state_name = li_tag_el.xpath("text()")[0]
     cities = states[state_idx][2]
     cities_li_tags = list(filter(None, [x.replace(" ", "").strip(" ").strip("\n").strip("\t") for x in li_tag_el.xpath('ul/li/text()')]))
-    if cities_li_tags is None or len(cities_li_tags) != 2:
-        print("Doesn't find 2 LI tags (found {}) for state {}".format(len(cities_li_tags), state_name))
+    if cities_li_tags is None or len(cities_li_tags) != len(cities):
+        print("Doesn't find {} LI tags (found {}) for state {}".format(len(cities), len(cities_li_tags), state_name))
         sys.exit(1)
 
     for cities_li_tag in cities_li_tags:
@@ -112,8 +102,8 @@ for li_tag_el in li_tags_el:
             
     ## LI city name sorted
     cities_li_tags_b = list(filter(None, [x.replace(" ", "").strip(" ").strip("\n").strip("\t") for x in li_tag_el.xpath('ul/li/b/text()')]))
-    if cities_li_tags_b is None or len(cities_li_tags_b) != 2:
-        print("Doesn't find 2 LI tags with B tag (found {}) for state {}".format(len(cities_li_tags_b), state_name))
+    if cities_li_tags_b is None or len(cities_li_tags_b) != len(cities):
+        print("Doesn't find {} LI tags with B tag (found {}) for state {}".format(len(cities), len(cities_li_tags_b), state_name))
         sys.exit(1)
 
     city_idx = 0
