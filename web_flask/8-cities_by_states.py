@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""List of states"""
+"List of states"
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -15,7 +15,7 @@ def app_teardown_appcontext(self):
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_by_states():
     return render_template("8-cities_by_states.html",
-                           states=storage.all(State))
+                           states=storage.all(State).values())
 
 
 if __name__ == "__main__":
