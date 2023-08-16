@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"Placeholder"
+"Task 9. Script that starts a web Application"
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -20,6 +20,8 @@ def states():
 
 @app.route("/states/<string:id>", strict_slashes=False)
 def states_id(id):
+    """ Display the list of states, and
+    their cities if the id is displayed"""
     for s in storage.all(State).values():
         if s.id == id:
             return render_template("9-states.html", id=id,
@@ -28,4 +30,4 @@ def states_id(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host="0.0.0.0")
+    app.run(port=5000, host="0.0.0.0")
