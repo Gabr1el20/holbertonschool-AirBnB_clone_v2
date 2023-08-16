@@ -3,17 +3,20 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+
 app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown(self):
-    "Remove the current SQLAlchemy session"
+def app_teardown_appcontext(self):
+    """Remove the current
+    SQLAlchemy session"""
     storage.close()
 
 
 @app.route("/states", strict_slashes=False)
 def states():
+    """Generate a list of all the states"""
     return render_template("9-states.html",
                            states=storage.all(State).values())
 
